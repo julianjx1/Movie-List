@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MovieViewController: UITableViewController {
+class MovieViewController: UITableViewController, UISearchBarDelegate {
     let searchController = UISearchController(searchResultsController: nil)
     
     lazy var viewModel = {
@@ -17,9 +17,9 @@ class MovieViewController: UITableViewController {
         super.viewDidLoad()
 
         navigationController?.navigationBar.prefersLargeTitles = true
-        //navigationItem.title = "Home"
         navigationItem.searchController = searchController
-        searchController.searchResultsUpdater = self
+        navigationItem.hidesSearchBarWhenScrolling = false
+        searchController.searchBar.delegate = self
         viewModel.getMovies(search: "marvel")
         viewModel.reloadTableView = {
             [weak self] in
@@ -29,9 +29,11 @@ class MovieViewController: UITableViewController {
         }
     }
 
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        viewModel.getMovies(search: searchController.searchBar.text ?? "marvel")
+    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return viewModel.moviesCellViewModels.count
     }
 
@@ -49,12 +51,5 @@ class MovieViewController: UITableViewController {
     
 
 }
-extension MovieViewController:UISearchResultsUpdating{
-    func updateSearchResults(for searchController: UISearchController) {
-        viewModel.getMovies(search: searchController.searchBar.text ?? "marvel")
-        
-    }
-    
-    
 
-}
+

@@ -4,7 +4,6 @@ import Foundation
 typealias Movies = [Movie]
 import Foundation
 
-// MARK: - MovieResponseResult
 struct MovieResponseResult: Codable {
     let page: Int
     let results: [Movie]
@@ -17,7 +16,6 @@ struct MovieResponseResult: Codable {
     }
 }
 
-// MARK: - Result
 struct Movie: Codable {
     let adult: Bool
     let backdropPath: String?

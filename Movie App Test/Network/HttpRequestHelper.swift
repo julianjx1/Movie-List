@@ -16,7 +16,7 @@ class HttpRequestHelper {
             return
           }
           dataTask =
-            defaultSession.dataTask(with: url) { [weak self] data, response, error in
+            defaultSession.dataTask(with: url) { data, response, error in
                 
                 guard error == nil else {
                     print("Error: problem calling GET")
